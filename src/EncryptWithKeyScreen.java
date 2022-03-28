@@ -13,8 +13,12 @@ import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import java.awt.Color;
 
 public class EncryptWithKeyScreen extends JFrame {
 
@@ -28,6 +32,7 @@ public class EncryptWithKeyScreen extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		//sqliteDB db=new sqliteDB();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -111,6 +116,7 @@ public class EncryptWithKeyScreen extends JFrame {
 		txtSelectYourData.setColumns(10);
 		
 		JLabel succesmessage = new JLabel("");
+		succesmessage.setForeground(Color.GREEN);
 		succesmessage.setBounds(12, 108, 410, 15);
 		contentPane.add(succesmessage);
 		
@@ -130,6 +136,20 @@ public class EncryptWithKeyScreen extends JFrame {
 				}
 				
 				succesmessage.setText("data successfuly encrypted in : /home/kali/stega_project");
+				
+				String j="/home/kali/stega_project/encrypted_data";
+			      byte[] encoded=null;
+				try {
+					encoded = Files.readAllBytes(Paths.get(j));
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			      String gg= new String(encoded, StandardCharsets.US_ASCII);
+			      
+				sqliteDB db=new sqliteDB();
+				db.add("INSERT INTO stegano (data) values ('"+j+"')");
+				db.closeConnection();
 				
 			}
 		});

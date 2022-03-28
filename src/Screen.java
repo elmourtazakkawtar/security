@@ -305,7 +305,7 @@ public class Screen extends JFrame {
 		JButton encryptwithkey = new JButton("use the key decoded to encrypt your data");
 		encryptwithkey.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				new EncryptWithKeyScreen().setVisible(true);
 			}
 		});
 		encryptwithkey.setBounds(26, 292, 340, 25);
